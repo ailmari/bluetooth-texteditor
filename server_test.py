@@ -6,6 +6,8 @@
 # $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
 # -*- coding: utf-8 -*-
 from bluetooth import *
+import _thread
+import texteditor
 
 server_sock=BluetoothSocket( RFCOMM )
 server_sock.bind(("",PORT_ANY))
@@ -26,6 +28,9 @@ print("Waiting for connection on RFCOMM channel %d" % port)
 
 client_sock, client_info = server_sock.accept()
 print("Accepted connection from ", client_info)
+
+te = texteditor.Text_editor_program
+_thread.start_new_thread(te.mainloop, ())
 
 try:
     while True:
