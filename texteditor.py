@@ -36,7 +36,7 @@ class Text_window(tk.Text):
         def wrapped_function(self, *args, **kwargs):
             text = func(self, *args, **kwargs)
             if text:
-                print('{}: {}'.format(now(), text))
+                print('{}: {} @ {}'.format(now(), text[0], text[1]))
         return wrapped_function
 
     def get_hash(self):
@@ -51,8 +51,9 @@ class Text_window(tk.Text):
     @print_out
     def last_written(self):
         last_text = self.get('last', 'insert')
+        last_index = self.index('last')
         if last_text and self.has_changed():
-            out = last_text
+            out = (last_text, last_index)
             self.last_hash = self.get_hash()
         else:
             out = None
